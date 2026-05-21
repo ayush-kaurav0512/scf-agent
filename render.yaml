@@ -2,8 +2,8 @@ services:
   - type: web
     name: scf-agent-api
     runtime: python
-    buildCommand: pip install -r requirements.txt && pip install . --no-deps
-    startCommand: uvicorn scf_agent.api.main:app --host 0.0.0.0 --port $PORT
+    buildCommand: pip install uv && uv sync --no-dev
+    startCommand: uv run uvicorn scf_agent.api.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: GROQ_API_KEY
         sync: false
@@ -23,8 +23,8 @@ services:
   - type: web
     name: scf-agent-dashboard
     runtime: python
-    buildCommand: pip install -r requirements.txt && pip install . --no-deps
-    startCommand: streamlit run dashboard/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    buildCommand: pip install uv && uv sync --no-dev
+    startCommand: uv run streamlit run dashboard/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
     envVars:
       # Set this to your scf-agent-api Render URL after deploying the API service
       # e.g. https://scf-agent-api.onrender.com

@@ -31,8 +31,6 @@ dependencies = [
     "streamlit",
     "plotly",
     "python-dotenv",
-    "pytest",
-    "pytest-asyncio",
     "langchain",
     "langchain-groq",
     "langchain-community",
