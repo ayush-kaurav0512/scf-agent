@@ -13,6 +13,15 @@ from dashboard.components.risk_table import render_risk_table
 DEFAULT_API_BASE: str = os.environ.get("API_BASE_URL", "http://localhost:8000")
 
 
+def _normalize_api_base(url: str) -> str:
+    """Upgrade http:// to https:// for known cloud hosts to prevent POST→GET redirect."""
+    if url.startswith("http://") and any(
+        h in url for h in (".onrender.com", ".railway.app", ".fly.dev", ".vercel.app")
+    ):
+        return "https://" + url[7:]
+    return url.rstrip("/")
+
+
 def _render_sidebar() -> None:
     with st.sidebar:
         st.title("SCF Control Tower")
@@ -24,7 +33,7 @@ def _render_sidebar() -> None:
             value=st.session_state.get("api_base", DEFAULT_API_BASE),
             help="Root URL of the FastAPI service.",
         )
-        st.session_state["api_base"] = api_base
+        st.session_state["api_base"] = _normalize_api_base(api_base)
 
         threshold = st.slider(
             "Risk threshold",
@@ -53,7 +62,7 @@ def main() -> None:
 
     _render_sidebar()
 
-    api_base: str = st.session_state.get("api_base", DEFAULT_API_BASE)
+    api_base: str = _normalize_api_base(st.session_state.get("api_base", DEFAULT_API_BASE))
     threshold: int = int(st.session_state.get("threshold", 50))
 
     col1, col2 = st.columns([2, 1])

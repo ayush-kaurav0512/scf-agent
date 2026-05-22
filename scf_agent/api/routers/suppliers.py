@@ -10,18 +10,6 @@ from scf_agent.api.schemas import AtRiskResponse, SupplierScore, SupplierScoreRe
 router = APIRouter()
 
 
-@router.get("/{supplier_name}", response_model=SupplierScoreResponse)
-async def get_supplier(supplier_name: str) -> SupplierScoreResponse:
-    """Get credit score and risk label for a single supplier by name.
-
-    Returns 404 if the supplier is not found in the feature matrix.
-    """
-    result = get_supplier_risk_score.invoke({"supplier_name": supplier_name})
-    if "error" in result:
-        raise HTTPException(status_code=404, detail=result["error"])
-    return SupplierScoreResponse(data=SupplierScore(**result))
-
-
 @router.get("/", response_model=AtRiskResponse)
 async def get_at_risk(
     threshold: int = Query(
@@ -43,3 +31,15 @@ async def get_at_risk(
         suppliers=suppliers_parsed,
         summary=result["summary"],
     )
+
+
+@router.get("/{supplier_name}", response_model=SupplierScoreResponse)
+async def get_supplier(supplier_name: str) -> SupplierScoreResponse:
+    """Get credit score and risk label for a single supplier by name.
+
+    Returns 404 if the supplier is not found in the feature matrix.
+    """
+    result = get_supplier_risk_score.invoke({"supplier_name": supplier_name})
+    if "error" in result:
+        raise HTTPException(status_code=404, detail=result["error"])
+    return SupplierScoreResponse(data=SupplierScore(**result))

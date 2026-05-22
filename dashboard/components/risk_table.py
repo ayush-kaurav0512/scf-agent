@@ -27,7 +27,7 @@ def _fetch_at_risk(api_base: str, threshold: int) -> dict:
         )
         resp.raise_for_status()
         return resp.json()
-    except httpx.HTTPError as exc:
+    except Exception as exc:
         return {"error": str(exc)}
 
 
