@@ -31,4 +31,4 @@ services:
         fromService:
           name: scf-agent-api
           type: web
-          property: url
+          property: host

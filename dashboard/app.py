@@ -14,12 +14,23 @@ DEFAULT_API_BASE: str = os.environ.get("API_BASE_URL", "http://localhost:8000")
 
 
 def _normalize_api_base(url: str) -> str:
-    """Upgrade http:// to https:// for known cloud hosts to prevent POST→GET redirect."""
-    if url.startswith("http://") and any(
-        h in url for h in (".onrender.com", ".railway.app", ".fly.dev", ".vercel.app")
-    ):
+    """Ensure the URL has https:// and no trailing slash.
+
+    Handles three input shapes from Render's fromService injection:
+      - bare hostname:  scf-agent-api.onrender.com
+      - http URL:       http://scf-agent-api.onrender.com
+      - https URL:      https://scf-agent-api.onrender.com  (pass-through)
+    """
+    url = url.strip().rstrip("/")
+    cloud_hosts = (".onrender.com", ".railway.app", ".fly.dev", ".vercel.app")
+    if not url.startswith("http"):
+        # bare hostname injected by Render's fromService host property
+        if any(h in url for h in cloud_hosts):
+            return "https://" + url
+        return url
+    if url.startswith("http://") and any(h in url for h in cloud_hosts):
         return "https://" + url[7:]
-    return url.rstrip("/")
+    return url
 
 
 def _render_sidebar() -> None:
