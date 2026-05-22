@@ -19,6 +19,7 @@ def _ask_agent(api_base: str, question: str) -> dict:
             f"{api_base}/api/v1/agent/ask",
             json={"question": question},
             timeout=120.0,
+            follow_redirects=True,
         )
         resp.raise_for_status()
         return resp.json()

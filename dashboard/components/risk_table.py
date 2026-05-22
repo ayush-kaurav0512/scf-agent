@@ -23,6 +23,7 @@ def _fetch_at_risk(api_base: str, threshold: int) -> dict:
             f"{api_base}/api/v1/suppliers/",
             params={"threshold": threshold},
             timeout=15.0,
+            follow_redirects=True,
         )
         resp.raise_for_status()
         return resp.json()

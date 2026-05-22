@@ -17,7 +17,7 @@ RECOMMENDATION_COLORS: dict[str, str] = {
 def _fetch_irr(api_base: str, payload: dict) -> dict:
     """POST a single IRR scenario; returns the decoded JSON or an error dict."""
     try:
-        resp = httpx.post(f"{api_base}/api/v1/decisions/irr", json=payload, timeout=15.0)
+        resp = httpx.post(f"{api_base}/api/v1/decisions/irr", json=payload, timeout=15.0, follow_redirects=True)
         resp.raise_for_status()
         return resp.json()
     except httpx.HTTPError as exc:
@@ -27,7 +27,7 @@ def _fetch_irr(api_base: str, payload: dict) -> dict:
 def _fetch_whatif(api_base: str, payload: dict) -> dict:
     """POST a what-if grid; returns the decoded JSON or an error dict."""
     try:
-        resp = httpx.post(f"{api_base}/api/v1/decisions/whatif", json=payload, timeout=30.0)
+        resp = httpx.post(f"{api_base}/api/v1/decisions/whatif", json=payload, timeout=30.0, follow_redirects=True)
         resp.raise_for_status()
         return resp.json()
     except httpx.HTTPError as exc:
