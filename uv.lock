@@ -1532,7 +1532,7 @@ dev = [
 requires-dist = [
     { name = "anyio", specifier = ">=3.7.1,<5" },
     { name = "fastapi", specifier = ">=0.115.0,<0.116" },
-    { name = "httpx", specifier = ">=0.27.0,<1.0" },
+    { name = "httpx" },
     { name = "joblib" },
     { name = "langchain-core" },
     { name = "langchain-groq" },
@@ -1544,9 +1544,9 @@ requires-dist = [
     { name = "pydantic-settings" },
     { name = "python-dotenv" },
     { name = "scikit-learn" },
-    { name = "starlette", specifier = ">=0.41.0,<0.42" },
+    { name = "starlette", specifier = ">=0.46.0,<0.47" },
     { name = "streamlit" },
-    { name = "uvicorn", specifier = ">=0.29.0" },
+    { name = "uvicorn" },
     { name = "xgboost" },
 ]
 
@@ -1706,14 +1706,14 @@ wheels = [
 
 [[package]]
 name = "starlette"
-version = "0.41.3"
+version = "0.46.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1a/4c/9b5764bd22eec91c4039ef4c55334e9187085da2d8a2df7bd570869aae18/starlette-0.41.3.tar.gz", hash = "sha256:0e4ab3d16522a255be6b28260b938eae2482f98ce5cc934cb08dce8dc3ba5835", size = 2574159, upload-time = "2024-11-18T19:45:04.283Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ce/20/08dfcd9c983f6a6f4a1000d934b9e6d626cff8d2eeb77a89a68eef20a2b7/starlette-0.46.2.tar.gz", hash = "sha256:7f7361f34eed179294600af672f565727419830b54b7b084efe44bb82d2fccd5", size = 2580846, upload-time = "2025-04-13T13:56:17.942Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/96/00/2b325970b3060c7cecebab6d295afe763365822b1306a12eeab198f74323/starlette-0.41.3-py3-none-any.whl", hash = "sha256:44cedb2b7c77a9de33a8b74b2b90e9f50d11fcf25d8270ea525ad71a25374ff7", size = 73225, upload-time = "2024-11-18T19:45:02.027Z" },
+    { url = "https://files.pythonhosted.org/packages/8b/0c/9d30a4ebeb6db2b25a841afbb80f6ef9a854fc3b41be131d249a977b4959/starlette-0.46.2-py3-none-any.whl", hash = "sha256:595633ce89f8ffa71a015caed34a5b2dc1c0cdb3f0f1fbd1e69339cf2abeec35", size = 72037, upload-time = "2025-04-13T13:56:16.21Z" },
 ]
 
 [[package]]
