@@ -25,6 +25,7 @@ dependencies = [
     "joblib",
     "httpx",
     "fastapi",
+    "anyio>=3.6.2,<4.13",
     "uvicorn",
     "pydantic",
     "pydantic-settings",
