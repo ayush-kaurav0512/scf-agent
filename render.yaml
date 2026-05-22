@@ -4,6 +4,7 @@ services:
     runtime: python
     buildCommand: pip install uv && uv sync --no-dev
     startCommand: uv run uvicorn scf_agent.api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
     envVars:
       - key: GROQ_API_KEY
         sync: false
@@ -26,7 +27,8 @@ services:
     buildCommand: pip install uv && uv sync --no-dev
     startCommand: uv run streamlit run dashboard/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
     envVars:
-      # Set this to your scf-agent-api Render URL after deploying the API service
-      # e.g. https://scf-agent-api.onrender.com
       - key: API_BASE_URL
-        sync: false
+        fromService:
+          name: scf-agent-api
+          type: web
+          property: url
